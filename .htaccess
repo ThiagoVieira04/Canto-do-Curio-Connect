@@ -1,0 +1,73 @@
+# .htaccess - Configurações para Apache
+# Ativar o mod_rewrite
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Forçar HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Remover www
+    RewriteCond %{HTTP_HOST} ^www\.
+    RewriteRule ^(.*)$ https://%{HTTP_HOST:4}/$1 [R=301,L]
+</IfModule>
+
+# Gzip Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+    AddOutputFilterByType DEFLATE application/rss+xml application/atom+xml image/svg+xml
+</IfModule>
+
+# Cache Control
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # HTML (não cache)
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # CSS e JavaScript
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    
+    # Imagens
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    
+    # Fontes
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+</IfModule>
+
+# Segurança - Headers
+<IfModule mod_headers.c>
+    # X-UA-Compatible
+    Header set X-UA-Compatible "IE=edge"
+    
+    # X-Content-Type-Options
+    Header set X-Content-Type-Options "nosniff"
+    
+    # X-Frame-Options
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # X-XSS-Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Referrer-Policy
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+# Desabilitar listagem de diretórios
+Options -Indexes
+
+# Charset padrão
+AddDefaultCharset utf-8
+
+# Tipos MIME
+AddType application/json .json
+AddType application/xml .xml
+AddType text/xml .xml

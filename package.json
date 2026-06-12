@@ -1,0 +1,36 @@
+{
+  "name": "papel-e-sonhos-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page moderna para Papel e Sonhos Informática",
+  "author": "Papel e Sonhos Informática",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThiagoVieira04/Papel-e-Sonhos-Connect.git"
+  },
+  "keywords": [
+    "landing-page",
+    "qr-code",
+    "nfc",
+    "informática",
+    "rio-de-janeiro",
+    "linktree"
+  ],
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "http-server -p 8000 -o",
+    "build": "echo 'No build needed - static files only'",
+    "test": "echo 'Run manual tests in browser'",
+    "serve": "npx http-server"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "not IE 11"
+  ]
+}
