@@ -841,44 +841,33 @@ function handleBankRedirect(bank) {
 
     // Copy the pix key silently first
     copyPixKeySilent();
-    showToast('Chave Pix copiada! Abrindo seu banco...', 'success');
+    showToast('Chave Pix copiada! Abrindo ' + bank.name + '...', 'success');
 
-    // Tenta abrir o app pelo custom scheme (funciona em Android e iOS se instalado)
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isAndroid = /android/.test(userAgent);
+    const isIOS = /iphone|ipad|ipod/.test(userAgent);
 
-    // Marca o momento do clique
-    const start = Date.now();
-
-    // Tenta abrir via custom scheme usando iframe (não redireciona a página)
-    try {
-        iframe.src = bank.scheme;
-    } catch(e) {}
-
-    // Fallback: se o app não abrir em 1.5s, a página continua normalmente
     setTimeout(() => {
-        document.body.removeChild(iframe);
-
-        const elapsed = Date.now() - start;
-        // Se a página ficou em foco durante todo o tempo, o app pode não ter aberto
-        if (!document.hidden && !document.webkitHidden) {
-            // Tenta via window.location como segunda tentativa
-            const schemeAttempt = document.createElement('a');
-            schemeAttempt.href = bank.scheme;
-            schemeAttempt.style.display = 'none';
-            document.body.appendChild(schemeAttempt);
-            schemeAttempt.click();
-            document.body.removeChild(schemeAttempt);
-
-            // Se ainda não abrir, mostra mensagem orientando o usuário
+        if (isAndroid && bank.intent) {
+            // Android: usa intent URL
+            window.location.href = bank.intent;
+        } else if (isIOS && bank.scheme) {
+            // iOS: usa custom scheme diretamente
+            window.location.href = bank.scheme;
+        } else if (bank.scheme) {
+            // Desktop/Outros: tenta scheme primeiro, depois abre site
+            const now = Date.now();
+            window.location.href = bank.scheme;
             setTimeout(() => {
-                if (!document.hidden && !document.webkitHidden) {
-                    showToast(`App ${bank.name} não encontrado. Cole a chave Pix no seu banco manualmente.`, 'info');
+                if (Date.now() - now < 2000) {
+                    window.open('https://www.' + bank.domain, '_blank');
                 }
             }, 1500);
+        } else {
+            // Sem scheme: abre o site do banco
+            window.open('https://www.' + bank.domain, '_blank');
         }
-    }, 1500);
+    }, 500);
 }
 
 // =====================
