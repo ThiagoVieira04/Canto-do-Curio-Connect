@@ -23,6 +23,7 @@ const modalCloseButtons = document.querySelectorAll('.modal-close');
 const copyPixBtn = document.getElementById('copyPixBtn');
 const downloadQRBtn = document.getElementById('downloadQRBtn');
 const copyWifiBtn = document.getElementById('copyWifiBtn');
+const connectWifiBtn = document.getElementById('connectWifiBtn');
 const successMessage = document.getElementById('successMessage');
 const toast = document.getElementById('toast');
 const bankModal = document.getElementById('bankModal');
@@ -86,6 +87,11 @@ function initEventListeners() {
     // Copy WiFi password button
     if (copyWifiBtn) {
         copyWifiBtn.addEventListener('click', copyWifiPassword);
+    }
+
+    // Connect WiFi button
+    if (connectWifiBtn) {
+        connectWifiBtn.addEventListener('click', openWifiSettings);
     }
 
     // Open Bank button
@@ -290,6 +296,34 @@ function openWiFiModal() {
     
     if (window.innerWidth < 768) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+// Abre as configurações de Wi-Fi do dispositivo
+function openWifiSettings() {
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = /android/.test(ua);
+    const isIOS = /iphone|ipad|ipod/.test(ua);
+
+    // Copia a senha automaticamente antes de redirecionar
+    copyWifiPassword();
+
+    trackEvent('wifi_connect_clicked', {});
+
+    if (isAndroid) {
+        // Android: abre as configurações de Wi-Fi diretamente via Intent
+        // Pacote: com.android.settings (Settings principal)
+        // Ação: android.settings.WIFI_SETTINGS abre a tela de Wi-Fi
+        window.location.href = 'intent://wifi#Intent;action=android.settings.WIFI_SETTINGS;end';
+    } else if (isIOS) {
+        // iOS: não existe deep link direto para Wi-Fi Settings
+        // Abre os Ajustes gerais do app (melhor alternativa disponível)
+        // Informa ao usuário para selecionar Wi-Fi manualmente
+        showToast('Abrindo Ajustes... Selecione "Wi-Fi" na lista.', 'info');
+        window.location.href = 'app-settings:';
+    } else {
+        // Desktop: informa que o recurso é mobile
+        showToast('A configuração de Wi-Fi está disponível apenas em dispositivos móveis.', 'info');
     }
 }
 
