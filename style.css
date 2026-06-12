@@ -364,6 +364,14 @@ body {
     color: #ffffff;
 }
 
+#wifiModal .copy-btn {
+    background: linear-gradient(135deg, #3498db, #2196f3);
+}
+
+#wifiModal .copy-btn:hover {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+}
+
 /* WiFi Info Section */
 .wifi-info {
     background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.1));
