@@ -870,18 +870,11 @@ function initTheme() {
     const themeToggleBtn = document.getElementById('themeToggle');
     if (!themeToggleBtn) return;
 
-    const currentTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Set initial state
-    if (currentTheme === 'dark' || (!currentTheme && systemPrefersDark)) {
-        document.body.classList.add('dark-theme');
-        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-    } else {
-        document.body.classList.remove('dark-theme');
-        document.body.classList.add('light-theme');
-        themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
-    }
+    // Sempre inicia em dark mode
+    document.body.classList.add('dark-theme');
+    document.body.classList.remove('light-theme');
+    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+    localStorage.setItem('theme', 'dark');
 
     themeToggleBtn.addEventListener('click', () => {
         if (document.body.classList.contains('dark-theme')) {
