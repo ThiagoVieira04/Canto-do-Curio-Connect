@@ -8,7 +8,7 @@ const CONFIG = {
     googleReviewUrl: 'https://www.google.com/search?q=canto+do+curi%C3%B3+ra%C3%A7oes+piabet%C3%A1',
     instagramUrl: 'https://www.instagram.com/cantodocurioracoes/',
     facebookUrl: 'https://www.facebook.com/canto.do.curio.racoes/',
-    pageUrl: 'https://papel-e-sonhos-connect.vercel.app/',
+    pageUrl: 'https://canto-do-curio-connect.vercel.app/',
 };
 
 // =====================

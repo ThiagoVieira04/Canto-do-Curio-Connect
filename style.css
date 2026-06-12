@@ -202,7 +202,7 @@ body {
 }
 
 .main-text {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--gray-dark);
     margin-bottom: 10px;
     font-weight: 500;
@@ -431,7 +431,7 @@ body {
 .footer-content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 4px;
     align-items: center;
 }
 
