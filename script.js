@@ -271,7 +271,7 @@ function downloadQRCode() {
     // Create download link
     const link = document.createElement('a');
     link.href = image;
-    link.download = 'papel-e-sonhos-qrcode.png';
+    link.download = 'canto-do-curio-qrcode.png';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -382,15 +382,15 @@ function detectAccessMethod() {
 // =====================
 
 function shareViaWhatsApp() {
-    const text = encodeURIComponent('Conheça a Papel e Sonhos Informática! Serviços digitais, impressão e documentos. ' + window.location.href);
+    const text = encodeURIComponent('Conheça a Canto do Curió Rações! Rações e acessórios para pets. ' + window.location.href);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
 function shareViaOther() {
     if (navigator.share) {
         navigator.share({
-            title: 'Papel e Sonhos Informática',
-            text: 'Conheça nossos serviços!',
+            title: 'Canto do Curió Rações',
+            text: 'Conheça nossos produtos para pets!',
             url: window.location.href
         }).catch(err => console.log('Erro ao compartilhar:', err));
     } else {
@@ -473,80 +473,6 @@ document.addEventListener('mousedown', function() {
 });
 
 // =====================
-// PWA & MANIFEST
-// =====================
-
-// Add manifest link dynamically
-function addManifest() {
-    const manifest = {
-        name: 'Papel e Sonhos Informática',
-        short_name: 'P&S Informática',
-        description: 'Serviços digitais, impressão, documentos e atendimento rápido pelo WhatsApp.',
-        start_url: '/',
-        scope: '/',
-        display: 'standalone',
-        background_color: '#ffffff',
-        theme_color: '#0a2463',
-        orientation: 'portrait-primary',
-        icons: [
-            {
-                src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect fill="%230a2463" width="192" height="192"/><text x="96" y="130" font-size="120" fill="%23FFD700" text-anchor="middle" font-weight="bold">P</text></svg>',
-                sizes: '192x192',
-                type: 'image/svg+xml',
-                purpose: 'any'
-            },
-            {
-                src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect fill="%230a2463" width="512" height="512"/><text x="256" y="350" font-size="320" fill="%23FFD700" text-anchor="middle" font-weight="bold">P</text></svg>',
-                sizes: '512x512',
-                type: 'image/svg+xml',
-                purpose: 'maskable'
-            }
-        ],
-        screenshots: [
-            {
-                src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 720"><rect fill="%230a2463" width="540" height="720"/></svg>',
-                sizes: '540x720',
-                type: 'image/svg+xml',
-                form_factor: 'narrow'
-            }
-        ],
-        categories: ['business', 'shopping'],
-        shortcuts: [
-            {
-                name: 'WhatsApp',
-                short_name: 'Chat',
-                description: 'Abrir WhatsApp',
-                url: '/?utm_source=shortcut&utm_medium=app_shortcut&utm_campaign=whatsapp',
-                icons: [{ src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><rect fill="%2325d366" width="96" height="96"/></svg>', sizes: '96x96' }]
-            },
-            {
-                name: 'Pix',
-                short_name: 'Pagar',
-                description: 'Ver QR Code Pix',
-                url: '/?utm_source=shortcut&utm_medium=app_shortcut&utm_campaign=pix',
-                icons: [{ src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><rect fill="%23FFD700" width="96" height="96"/></svg>', sizes: '96x96' }]
-            }
-        ]
-    };
-    
-    const manifestString = JSON.stringify(manifest);
-    const blob = new Blob([manifestString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    
-    const link = document.createElement('link');
-    link.rel = 'manifest';
-    link.href = url;
-    document.head.appendChild(link);
-}
-
-// Initialize manifest when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addManifest);
-} else {
-    addManifest();
-}
-
-// =====================
 // UTILITY FUNCTIONS
 // =====================
 
@@ -608,7 +534,9 @@ const BANKS = [
     {
         name: 'Nubank',
         scheme: 'nubank://',
-        intent: 'intent://#Intent;scheme=nubank;package=br.com.nubank;end',
+        intent: 'intent://open#Intent;scheme=nubank;package=com.nu.production;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nu.production;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.nu.production',
+        appStore: 'https://apps.apple.com/app/nubank/id1093127969',
         color: 'linear-gradient(135deg, #820AD1, #530082)',
         initials: 'Nu',
         domain: 'nubank.com.br'
@@ -616,47 +544,59 @@ const BANKS = [
     {
         name: 'Itaú',
         scheme: 'itau://',
-        intent: 'intent://#Intent;scheme=itau;package=com.itau;end',
+        intent: 'intent://open#Intent;scheme=itau;package=com.itau;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.itau;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.itau',
+        appStore: 'https://apps.apple.com/app/itau-personal/id577039602',
         color: 'linear-gradient(135deg, #FF7A00, #EC5E00)',
         initials: 'Itaú',
         domain: 'itau.com.br'
     },
     {
         name: 'Bradesco',
-        scheme: 'bradescomobile://',
-        intent: 'intent://#Intent;scheme=bradescomobile;package=com.bradesco;end',
+        scheme: 'bradesco://',
+        intent: 'intent://open#Intent;scheme=bradesco;package=com.bradesco;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.bradesco;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.bradesco',
+        appStore: 'https://apps.apple.com/app/bradesco/id491002437',
         color: 'linear-gradient(135deg, #CC092F, #E60042)',
         initials: 'Brad',
         domain: 'bradesco.com.br'
     },
     {
         name: 'Banco do Brasil',
-        scheme: 'bancodobrasil://',
-        intent: 'intent://#Intent;scheme=bancodobrasil;package=br.com.bb.ipad;end',
+        scheme: 'bb://',
+        intent: 'intent://open#Intent;scheme=bb;package=br.com.bb.android;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.bb.android;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.bb.android',
+        appStore: 'https://apps.apple.com/app/banco-do-brasil/id495409822',
         color: 'linear-gradient(135deg, #F2E307, #003399)',
         initials: 'BB',
         domain: 'bb.com.br'
     },
     {
         name: 'Caixa',
-        scheme: 'caixadireto://',
-        intent: 'intent://#Intent;scheme=caixadireto;package=br.gov.caixa.unico;end',
+        scheme: 'caixa://',
+        intent: 'intent://open#Intent;scheme=caixa;package=br.com.gabba.Caixa;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.gabba.Caixa;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.gabba.Caixa',
+        appStore: 'https://apps.apple.com/app/caixa/id481950320',
         color: 'linear-gradient(135deg, #005CA9, #F58220)',
-        initials: 'X',
+        initials: 'CX',
         domain: 'caixa.gov.br'
     },
     {
         name: 'Santander',
         scheme: 'santander://',
-        intent: 'intent://#Intent;scheme=santander;package=com.santander.app;end',
+        intent: 'intent://open#Intent;scheme=santander;package=com.santander.app;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.santander.app;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.santander.app',
+        appStore: 'https://apps.apple.com/app/santander/id462668768',
         color: 'linear-gradient(135deg, #EC0000, #B30000)',
-        initials: 'Sant',
+        initials: 'San',
         domain: 'santander.com.br'
     },
     {
         name: 'Inter',
         scheme: 'bancointer://',
-        intent: 'intent://#Intent;scheme=bancointer;package=br.com.intermedium;end',
+        intent: 'intent://open#Intent;scheme=bancointer;package=br.com.intermedium;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.intermedium;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.intermedium',
+        appStore: 'https://apps.apple.com/app/inter/id894478706',
         color: 'linear-gradient(135deg, #FF7A00, #FF5500)',
         initials: 'Inter',
         domain: 'bancointer.com.br'
@@ -664,7 +604,9 @@ const BANKS = [
     {
         name: 'PagBank',
         scheme: 'pagseguro://',
-        intent: 'intent://#Intent;scheme=pagseguro;package=br.com.uol.ps.seb;end',
+        intent: 'intent://open#Intent;scheme=pagseguro;package=br.com.pagseguro.app;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.pagseguro.app;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.pagseguro.app',
+        appStore: 'https://apps.apple.com/app/pagbank/id850697945',
         color: 'linear-gradient(135deg, #00C69E, #BFE02C)',
         initials: 'Pag',
         domain: 'pagseguro.com.br'
@@ -672,7 +614,9 @@ const BANKS = [
     {
         name: 'Mercado Pago',
         scheme: 'mercadopago://',
-        intent: 'intent://#Intent;scheme=mercadopago;package=com.mercadopago.wallet;end',
+        intent: 'intent://open#Intent;scheme=mercadopago;package=com.mercadopago.wallet;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.mercadopago.wallet;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.mercadopago.wallet',
+        appStore: 'https://apps.apple.com/app/mercado-pago/id931241885',
         color: 'linear-gradient(135deg, #00B1EA, #00A650)',
         initials: 'MP',
         domain: 'mercadopago.com.br'
@@ -680,7 +624,9 @@ const BANKS = [
     {
         name: 'PicPay',
         scheme: 'picpay://',
-        intent: 'intent://#Intent;scheme=picpay;package=com.picpay;end',
+        intent: 'intent://open#Intent;scheme=picpay;package=com.picpay;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.picpay;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.picpay',
+        appStore: 'https://apps.apple.com/app/picpay/id822207724',
         color: 'linear-gradient(135deg, #21C25E, #117F3D)',
         initials: 'Pic',
         domain: 'picpay.com'
@@ -688,7 +634,9 @@ const BANKS = [
     {
         name: 'Sicredi',
         scheme: 'sicredi://',
-        intent: 'intent://#Intent;scheme=sicredi;package=br.com.sicredi.mobile.cooperado;end',
+        intent: 'intent://open#Intent;scheme=sicredi;package=br.com.sicredi.mobile.cooperado;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.sicredi.mobile.cooperado;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.sicredi.mobile.cooperado',
+        appStore: 'https://apps.apple.com/app/sicredi/id493129390',
         color: 'linear-gradient(135deg, #3EA124, #66BB3F)',
         initials: 'Sic',
         domain: 'sicredi.com.br'
@@ -696,15 +644,19 @@ const BANKS = [
     {
         name: 'Sicoob',
         scheme: 'sicoob://',
-        intent: 'intent://#Intent;scheme=sicoob;package=br.com.sicoob.coopmobile;end',
+        intent: 'intent://open#Intent;scheme=sicoob;package=br.com.sicoob.coopmobile;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.sicoob.coopmobile;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.sicoob.coopmobile',
+        appStore: 'https://apps.apple.com/app/sicoob/id1102344425',
         color: 'linear-gradient(135deg, #00363A, #005F60)',
-        initials: 'Sico',
+        initials: 'Sic',
         domain: 'sicoob.com.br'
     },
     {
         name: 'BTG Pactual',
         scheme: 'btg://',
-        intent: 'intent://#Intent;scheme=btg;package=com.btg.pactual.banking;end',
+        intent: 'intent://open#Intent;scheme=btg;package=com.btg.pactual.banking;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.btg.pactual.banking;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.btg.pactual.banking',
+        appStore: 'https://apps.apple.com/app/btg-pactual/id999475586',
         color: 'linear-gradient(135deg, #0B2343, #000B1A)',
         initials: 'BTG',
         domain: 'btgpactual.com'
@@ -712,7 +664,9 @@ const BANKS = [
     {
         name: 'C6 Bank',
         scheme: 'c6bank://',
-        intent: 'intent://#Intent;scheme=c6bank;package=com.c6bank.app;end',
+        intent: 'intent://open#Intent;scheme=c6bank;package=com.c6bank.app;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.c6bank.app;end',
+        playStore: 'https://play.google.com/store/apps/details?id=com.c6bank.app',
+        appStore: 'https://apps.apple.com/app/c6-bank/id1448835276',
         color: 'linear-gradient(135deg, #1E1E1E, #000000)',
         initials: 'C6',
         domain: 'c6bank.com.br'
@@ -720,23 +674,19 @@ const BANKS = [
     {
         name: 'Neon',
         scheme: 'neon://',
-        intent: 'intent://#Intent;scheme=neon;package=br.com.neon;end',
+        intent: 'intent://open#Intent;scheme=neon;package=br.com.neon;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.neon;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.neon',
+        appStore: 'https://apps.apple.com/app/neon-cart%C3%A3o/id1163016100',
         color: 'linear-gradient(135deg, #00E5FF, #0055FF)',
         initials: 'Neon',
         domain: 'neon.com.br'
     },
     {
-        name: 'Next',
-        scheme: 'nextbank://',
-        intent: 'intent://#Intent;scheme=nextbank;package=br.com.next.app;end',
-        color: 'linear-gradient(135deg, #00FF5F, #000000)',
-        initials: 'next',
-        domain: 'next.me'
-    },
-    {
         name: 'Original',
         scheme: 'bancooriginal://',
-        intent: 'intent://#Intent;scheme=bancooriginal;package=br.com.original.bp;end',
+        intent: 'intent://open#Intent;scheme=bancooriginal;package=br.com.original.bp;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.original.bp;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.original.bp',
+        appStore: 'https://apps.apple.com/app/banco-original/id1159371498',
         color: 'linear-gradient(135deg, #1E3C3E, #2ECC71)',
         initials: 'Orig',
         domain: 'bancooriginal.com.br'
@@ -744,80 +694,81 @@ const BANKS = [
     {
         name: 'Banrisul',
         scheme: 'banrisul://',
-        intent: 'intent://#Intent;scheme=banrisul;package=br.com.banrisul.celsul;end',
+        intent: 'intent://open#Intent;scheme=banrisul;package=br.com.banrisul.celsul;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dbr.com.banrisul.celsul;end',
+        playStore: 'https://play.google.com/store/apps/details?id=br.com.banrisul.celsul',
+        appStore: 'https://apps.apple.com/app/banrisul/id490488591',
         color: 'linear-gradient(135deg, #00519E, #0076D6)',
         initials: 'Ban',
         domain: 'banrisul.com.br'
     }
 ];
 
+// Detecta o ambiente de execução
+function detectPlatform() {
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = /android/.test(ua);
+    const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isMobile = isAndroid || isIOS;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isTWA = document.referrer.includes('android-app://');
+
+    return { isAndroid, isIOS, isMobile, isStandalone, isTWA };
+}
+
 function openBankModal() {
     closeAllModals();
     bankModal.classList.add('active');
-    
+
     // Reset views
     bankLoading.style.display = 'flex';
     bankGrid.style.display = 'none';
-    
+
     // Simulate/attempt detection
     setTimeout(() => {
         bankLoading.style.display = 'none';
         bankGrid.style.display = 'block';
-        
         renderBankGrid();
-    }, 1500); // 1.5s scanning animation
+    }, 1500);
 }
 
 function renderBankGrid() {
     bankGridList.innerHTML = '';
-    
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isMobile = /android|iphone|ipad|ipod/.test(userAgent);
-    
-    // We will tag Nubank, Itaú, and Inter as detected on mobile to demonstrate the UI.
-    const detectedBanks = ['Nubank', 'Itaú', 'Inter'];
-    
-    // Update notice text
-    if (isMobile) {
-        bankNotice.innerHTML = '<i class="fas fa-check-circle"></i> 3 aplicativos detectados no dispositivo';
+    const platform = detectPlatform();
+
+    // Atualiza aviso conforme plataforma
+    if (platform.isMobile) {
+        bankNotice.innerHTML = '<i class="fas fa-info-circle"></i> Toque em um banco para abrir o app. A chave Pix será copiada automaticamente.';
         bankNotice.style.background = 'rgba(33, 194, 94, 0.15)';
         bankNotice.style.color = '#21c25e';
         bankNotice.style.borderColor = 'rgba(33, 194, 94, 0.3)';
     } else {
-        bankNotice.innerHTML = '<i class="fas fa-info-circle"></i> Detecção de apps nativos limitada no PC. Exibindo todos os bancos.';
+        bankNotice.innerHTML = '<i class="fas fa-info-circle"></i> No celular, o app abre direto. Aqui você será redirecionado ao site do banco.';
         bankNotice.style.background = 'rgba(255, 193, 7, 0.15)';
         bankNotice.style.color = '#ffc107';
         bankNotice.style.borderColor = 'rgba(255, 193, 7, 0.3)';
     }
-    
+
     BANKS.forEach(bank => {
         const item = document.createElement('div');
         item.className = 'bank-item';
-        
-        const isDetected = isMobile && detectedBanks.includes(bank.name);
-        
-        let badgeHTML = '';
-        if (isDetected) {
-            badgeHTML = `<span class="detected-badge"><i class="fas fa-check"></i> Detectado</span>`;
-        }
-        
+
         item.innerHTML = `
-            ${badgeHTML}
             <div class="bank-icon" style="background: ${bank.color}">
                 <img src="https://www.google.com/s2/favicons?domain=${bank.domain}&sz=128" alt="${bank.name}" class="bank-logo-img" onload="this.parentElement.style.background='transparent'; this.parentElement.style.boxShadow='none'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
                 <span class="bank-initials">${bank.initials}</span>
             </div>
             <div class="bank-name">${bank.name}</div>
         `;
-        
+
         item.addEventListener('click', () => {
             handleBankRedirect(bank);
         });
-        
+
         bankGridList.appendChild(item);
     });
 }
 
+// Copia a chave Pix silenciosamente
 function copyPixKeySilent() {
     const pixKey = CONFIG.pixKey;
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -829,52 +780,79 @@ function copyPixKeySilent() {
         textarea.style.opacity = '0';
         document.body.appendChild(textarea);
         textarea.select();
-        try {
-            document.execCommand('copy');
-        } catch(e) {}
+        try { document.execCommand('copy'); } catch(e) {}
         document.body.removeChild(textarea);
     }
 }
 
+// Abre o app bancário com fallback robusto
 function handleBankRedirect(bank) {
     trackEvent('bank_redirect_attempt', { bankName: bank.name });
 
-    // Copy the pix key silently first
+    const platform = detectPlatform();
+
+    // Copia a chave Pix
     copyPixKeySilent();
     showToast('Chave Pix copiada! Abrindo ' + bank.name + '...', 'success');
 
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isAndroid = /android/.test(userAgent);
-    const isIOS = /iphone|ipad|ipod/.test(userAgent);
-
+    // Fecha o modal
     setTimeout(() => {
-        if (isAndroid && bank.intent) {
-            // Android: usa intent URL
-            window.location.href = bank.intent;
-        } else if (isIOS && bank.scheme) {
-            // iOS: usa custom scheme diretamente
-            window.location.href = bank.scheme;
-        } else if (bank.scheme) {
-            // Desktop/Outros: tenta scheme primeiro, depois abre site
-            const now = Date.now();
-            window.location.href = bank.scheme;
-            setTimeout(() => {
-                if (Date.now() - now < 2000) {
-                    window.open('https://www.' + bank.domain, '_blank');
-                }
-            }, 1500);
-        } else {
-            // Sem scheme: abre o site do banco
-            window.open('https://www.' + bank.domain, '_blank');
+        closeAllModals();
+    }, 300);
+
+    // ── ANDROID: Usa Intent URL com fallback ──
+    if (platform.isAndroid) {
+        // Cria um link <a> e dispara o click (mais compatível que window.location)
+        const a = document.createElement('a');
+        a.href = bank.intent;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        return;
+    }
+
+    // ── iOS: Usa custom scheme via <a> click ──
+    if (platform.isIOS) {
+        const a = document.createElement('a');
+        a.href = bank.scheme;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        return;
+    }
+
+    // ── DESKTOP: Tenta scheme, senão abre loja/site ──
+    // No desktop, tentamos window.open com o scheme
+    // Se o app não estiver instalado, o browser ignora silenciosamente
+    const appProbe = window.open('about:blank', '_blank');
+    if (appProbe) {
+        appProbe.close();
+    }
+
+    // Tenta abrir via scheme
+    window.location.href = bank.scheme;
+
+    // Após 2s, se ainda estiver na mesma página, redireciona para loja
+    setTimeout(() => {
+        // Detecta se o browser continua focado (app não abriu)
+        if (document.visibilityState === 'visible') {
+            const isMac = /Macintosh|MacIntel/.test(navigator.userAgent) && 'ontouchend' in document;
+            if (isMac) {
+                // macOS com touch = provavelmente iPad, vai para App Store
+                window.location.href = bank.appStore;
+            } else {
+                window.location.href = bank.playStore;
+            }
         }
-    }, 500);
+    }, 2000);
 }
 
 // =====================
 // EXPORT FUNCTIONS
 // =====================
 
-// These can be used in console or called from HTML
 window.copyPixKey = copyPixKey;
 window.downloadQRCode = downloadQRCode;
 window.shareViaWhatsApp = shareViaWhatsApp;
