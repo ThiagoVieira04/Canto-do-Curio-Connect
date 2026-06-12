@@ -1,0 +1,21 @@
+{
+  "name": "Canto do Curió Rações",
+  "short_name": "Canto do Curió",
+  "description": "Rações e acessórios para cães, gatos e outros pets",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a2463",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
